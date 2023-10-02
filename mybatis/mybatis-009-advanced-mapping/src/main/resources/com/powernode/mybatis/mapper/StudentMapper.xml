@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.powernode.mybatis.mapper.StudentMapper">
+
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    <resultMap id="studentResultMapByStep" type="Student">
+        <id property="sid" column="sid"/>
+        <result property="sname" column="sname"/>
+        <association property="clazz"
+                     column="cid"
+                     fetchType="eager"
+                     select="com.powernode.mybatis.mapper.ClazzMapper.selectById" >
+
+        </association>
+    </resultMap>
+    
+    <select id="selectById" resultMap="studentResultMapByStep">
+        select sid, sname, cid from t_stu where sid = #{sid}
+    </select>
+
+    <select id="selectStus" resultType="Student">
+        select sid, sname, cid from t_stu where cid = #{cid}
+    </select>
+</mapper>

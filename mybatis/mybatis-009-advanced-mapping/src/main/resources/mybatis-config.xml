@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--
+       属性配置，一般用于配置数据库，resource用于引用数据库配置文件的位置，
+       配置好后可以使用${属性名}的形式使用
+   -->
+    <properties resource="jdbc.properties"/>
+
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!--延迟加载的全局开关。默认值false不开启。-->
+        <!--什么意思：所有只要但凡带有分步的，都采用延迟加载。-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+    </settings>
+
+    <!--
+       类型别名:
+       typeAlias：给每一个类设置别名
+       package： 指定包名，给这个包及其子包下的所有类设置别名，默认值为类名首字母小写
+   -->
+    <typeAliases>
+        <package name="com.powernode.mybatis.pojo"/>
+    </typeAliases>
+
+    <!--环境配置-->
+    <!-- 环境，可以配置多个，default：指定采用哪个环境 -->
+    <environments default="development">
+        <!-- 环境，可以配置多个，default：指定采用哪个环境 -->
+        <environment id="development">
+            <!-- 环境，可以配置多个，default：指定采用哪个环境 -->
+            <transactionManager type="JDBC"/>
+            <!-- 数据源，池类型的数据源 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--映射器-->
+    <mappers>
+        <package name="com.powernode.mybatis.mapper"/>
+    </mappers>
+</configuration>
